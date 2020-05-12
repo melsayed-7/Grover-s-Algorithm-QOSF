@@ -23,6 +23,7 @@ def search(to_be_searched, target, oracle):
     circuit.x(15)
     circuit.h(a)
     for i in range(12):
+        
         #oracle
         circuit = oracle(circuit)
 
