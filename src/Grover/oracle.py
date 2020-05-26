@@ -16,24 +16,42 @@ def oracle(circuit):
     assert circuit.n_qubits >= 8, 'This oracle works on 8 qubits'
 
     circuit.barrier()
+
     circuit.x([1,2,5,7])
-    circuit.ccx(0,1,8)
-    x=2
-    y=8
-    z=9
-    while x<8:
-        circuit.ccx(x,y,z)
-        x=x+1
-        y=y+1
-        z=z+1
-    circuit.cx(14,15)
-    while x>2:
-        x=x-1
-        y=y-1
-        z=z-1
-        circuit.ccx(x,y,z)
-    circuit.ccx(0,1,8)
+    circuit = nbit_toffoli_gate(circuit, 8)
     circuit.x([1,2,5,7])
+    
     circuit.barrier()
+
     return circuit
     
+
+
+
+def nbit_toffoli_gate(circuit, N):
+    """[summary]
+    This function applies N-bit toffoli on a given Circuit
+
+    Arguments:
+        N {[int]} -- number of qubits used in the toffoli gate
+        circuit {qiskit.Quantum Circuit}] -- The quantum circuit used
+    """
+    assert circuit.n_qubits >= 2*N, 'The circuit is not big enough to apply {}-toffoli gate'.format(N)
+        
+    circuit.ccx(0,1,N)
+    
+    for x in range(2,N):
+        y = x+N-2
+        z = x+N-1
+        circuit.ccx(x,y,z)
+    
+    circuit.cx(2*N-2,2*N-1)
+    
+    for x in range(7,1,-1):
+        y = N+x-2
+        z = N+x-1
+        circuit.ccx(x,y,z)
+
+    circuit.ccx(0,1,N)
+
+    return circuit

@@ -31,23 +31,7 @@ def search(to_be_searched, target, oracle):
         circuit.barrier()
         circuit.h(b)
         circuit.x(b)
-        circuit.ccx(0,1,8)
-        x=2
-        y=8
-        z=9
-        
-        while x<8:
-            circuit.ccx(x,y,z)
-            x=x+1
-            y=y+1
-            z=z+1
-        circuit.cx(14,15)
-        while x>2:
-            x=x-1
-            y=y-1
-            z=z-1
-            circuit.ccx(x,y,z)
-        circuit.ccx(0,1,8)  
+        circuit = nbit_toffoli_gate(circuit, 8)
         circuit.x(b)
         circuit.h(b)
 
