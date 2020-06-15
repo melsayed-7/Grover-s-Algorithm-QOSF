@@ -42,8 +42,10 @@ def search(to_be_searched, target, oracle):
 
         nbit_toffoli_gate(circuit, 8, gates_count)
         
+        
         circuit.x(b)
         circuit.h(b)
+        
         gates_count += 2
 
 

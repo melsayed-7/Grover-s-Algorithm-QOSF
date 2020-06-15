@@ -1,66 +1,73 @@
-import qiskit
+from qiskit import *
+from qiskit.circuit.library.standard_gates import XGate
 
-def oracle(circuit, gates_count):
-    """[summary]
-    This an oracle function that can be later implemented as a class
-    It applies specific operations on a given quantum circuit
 
-    Arguments:
-        circuit {[qiskit.Quantum Circuit]} -- The circuit that we will apply
-        the oracle on.
-
-        gates_count {[int]} -- gates_count variable to be updated
-
-    Returns:
-        [circuit] -- [description]
-    """
-
-    assert circuit.n_qubits >= 8, 'This oracle works on 8 qubits'
-
-    circuit.barrier()
-
-    circuit.x([1,2,5,7])
-    gates_count += 4  # in a more modular way the count of 0 in the target string
+def oracle(list_values:list, circuit_type:str):
+    n=len(list_values[0]) # Number of elements in one string.
+    assert n>=2, 'Length of input should be greater or equal to 2.'
+    assert len(set(map(len, list_values))) == 1, 'The values on your list should have the same length.'
     
-
-    nbit_toffoli_gate(circuit, 8, gates_count)
-    circuit.x([1,2,5,7])
-    gates_count += 4 
-    circuit.barrier()
-
-    
-
-
-
-def nbit_toffoli_gate(circuit, N, gates_count):
-    """[summary]
-    This function applies N-bit toffoli on a given Circuit
-
-    Arguments:
-        N {int} -- number of qubits used in the toffoli gate
-        circuit {qiskit.Quantum Circuit} -- The quantum circuit used
-        gates_count {int} -- 
-    """
-    assert circuit.n_qubits >= 2*N, 'The circuit is not big enough to apply {}-toffoli gate'.format(N)
+    if (circuit_type == 'noancilla' or n==2):
+        q1=QuantumRegister(n+1, "q")
+        a1=QuantumCircuit(q1)
+        a1.barrier()
+        for element in list_values:
+            ############ If an element in string equal 0 then apply X Gate on the left of the control dot. 
+            for i in range(n):
+                if element[::-1][i] == '0':
+                    a1.x(q1[i])
+            ############
+            # Apply n-1 qubits control Toffoli gate.
+            gate = XGate().control(n)
+            a1.append(gate, q1)
+            ############ If an element in string equal 0 then apply X Gate on the right of the control dot. 
+            for i in range(n):
+                if element[::-1][i] == '0':
+                    a1.x(q1[i])
+            ############
+            a1.barrier()
         
-    circuit.ccx(0,1,N)
-    gates_count += 1 
+    elif circuit_type=='ancilla':
+        r = 0
+        pn = r + 2
+        jn = r
+        kn= r+1
 
-    for x in range(2,N):
-        y = x+N-2
-        z = x+N-1
-        circuit.ccx(x,y,z)
-        gates_count += 1
+        q1=QuantumRegister(n*2, "q")
+        a1=QuantumCircuit(q1)
+        a1.barrier()
+
+        for element in list_values:
+            ############
+            for i in range(n):
+                if element[::-1][i] == '0':
+                    a1.x(q1[i])
+            
+            ############
+            # Apply n-1 qubits control Toffoli gate using 2-qubits control Toffoli gates.
+            a1.ccx(q1[r],q1[r+1],q1[r+n])
+            for i in range(n-2):
+                a1.ccx(q1[pn],q1[n+jn],q1[n+kn])
+                if i<n-3:
+                    pn+=1
+                    jn+=1
+                    kn+=1
+            a1.cx(q1[(n*2)-2], q1[(n*2)-1])
     
-    circuit.cx(2*N-2,2*N-1)
-    gates_count += 1
-    
-    for x in range(7,1,-1):
-        y = N+x-2
-        z = N+x-1
-        circuit.ccx(x,y,z)
-        gates_count += 1
+            for i in range(n-2):
+                a1.ccx(q1[pn],q1[n+jn],q1[n+kn])
+                if i<n-3:
+                    pn+=-1
+                    jn+=-1
+                    kn+=-1
+            a1.ccx(q1[r],q1[r+1],q1[r+n])
 
-    circuit.ccx(0,1,N)
-    gates_count += 1
+            ############
+            for i in range(n):
+                if element[::-1][i] == '0':
+                    a1.x(q1[i])
+            ############
 
+            a1.barrier()
+            
+    return a1
