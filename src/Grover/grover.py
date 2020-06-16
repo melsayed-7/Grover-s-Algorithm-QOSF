@@ -31,7 +31,7 @@ def grover_unit(list_values:list, circuit_type:str):
 
 
 #####################              GROVER'S CIRCUIT               ##################### 
-def grover(list_values:list, circuit_type: str):
+def grover(list_values:list, circuit_type: str, prob_1 = 0, prob_2 = 0):
 
     n = len(list_values[0])
     N = len(list_values)
@@ -50,5 +50,7 @@ def grover(list_values:list, circuit_type: str):
     
     circuit.measure([*range(n)],[*range(n)]) # Measure the n qubits.
 
-    return circuit
+    noise_model, basis_gates = noise(prob_1, prob_2)
+
+    return circuit, noise_model, basis_gates
 
