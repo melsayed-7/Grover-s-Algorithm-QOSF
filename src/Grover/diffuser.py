@@ -40,9 +40,9 @@ def diffuser(list_values:list, circuit_type:str):
                 jn+=1
                 kn+=1
         
-        a1.barrier()
+        ##a1.barrier()
         a1.cx(q1[(n*2)-3], q1[(n-1)])
-        a1.barrier()
+        ##a1.barrier()
 
         for i in range(n-3):
             a1.ccx(q1[pn],q1[n+jn],q1[n+kn])
