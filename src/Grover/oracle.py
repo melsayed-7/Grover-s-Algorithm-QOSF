@@ -10,7 +10,7 @@ def oracle(list_values:list, circuit_type:str):
     if (circuit_type == 'noancilla' or n==2):
         q1=QuantumRegister(n+1, "q")
         a1=QuantumCircuit(q1)
-        a1.barrier()
+        ##a1.barrier()
         for element in list_values:
             ############ If an element in string equal 0 then apply X Gate on the left of the control dot. 
             for i in range(n):
@@ -25,7 +25,7 @@ def oracle(list_values:list, circuit_type:str):
                 if element[::-1][i] == '0':
                     a1.x(q1[i])
             ############
-            a1.barrier()
+            ##a1.barrier()
         
     elif circuit_type=='ancilla':
         r = 0
@@ -35,7 +35,7 @@ def oracle(list_values:list, circuit_type:str):
 
         q1=QuantumRegister(n*2, "q")
         a1=QuantumCircuit(q1)
-        a1.barrier()
+        ##a1.barrier()
 
         for element in list_values:
             ############
@@ -68,6 +68,6 @@ def oracle(list_values:list, circuit_type:str):
                     a1.x(q1[i])
             ############
 
-            a1.barrier()
+            ##a1.barrier()
             
     return a1
