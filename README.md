@@ -30,6 +30,19 @@ navigate to **src/Grover** and then run this command
 python3 grover.py
 ```
 
+## Some plots
+* Success probability of the ancilla design (length of string = 3)
+![image](src/Different%20Designs%20Comparison/ancilla_success_prob.png)
+
+* Success probability of the noancilla design (length of string = 3)
+![image](src/Different%20Designs%20Comparison/noancilla_success_prob.png)
+
+* length of input string VS Number of computations (u3 + cx gates) used
+![image](src/Different%20Designs%20Comparison/computations.png)
+
+
+
+
 ## Authors
 
 The project was done by:
