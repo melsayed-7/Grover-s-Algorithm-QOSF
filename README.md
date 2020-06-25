@@ -46,7 +46,7 @@ python3 grover.py
 ## Authors
 
 The project was done by:
-*  [**Omar Ali**](s-omar.hussein@zewailcity.edu.eg)
+*  **Omar Ali** s-omar.hussein@zewailcity.edu.eg
 *  [**Walid Al-Maouaki**](https://github.com/walid-mk)
 *  [**Moustafa Elsayed**](https://github.com/moustafa-7) 
 
