@@ -47,7 +47,7 @@ python3 grover.py
 
 The project was done by:
 *  **Omar Ali** s-omar.hussein@zewailcity.edu.eg
-*  [**Walid Al-Maouaki**](https://github.com/walid-mk)
+*  [**Walid El Maouaki**](https://github.com/walid-mk)
 *  [**Moustafa Elsayed**](https://github.com/moustafa-7) 
 
 under the supervision of the [**Dr. Yuval Sanders**](https://researchers.mq.edu.au/en/persons/yuval-sanders/publications/).
