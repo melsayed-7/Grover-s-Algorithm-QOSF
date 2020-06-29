@@ -2,7 +2,7 @@
 
 This project is the result of the 3-months [QOSF](https://qosf.org/) mentorship progam. 
 
-The project is the exploration of the designs of Grover's algorithm (ancilla and non-ancilla qubits). Also, we are working now on doing complexity analysis of each design on different qubit-number designs to see how the complexity changes by increasing the number of qubits of the length code of the element to be searched for.
+The project is the exploration of the designs of Grover's algorithm (ancilla and non-ancilla qubits). Also, we have done complexity analysis of each design on different qubit-number designs to see how the complexity changes by increasing the number of qubits of the length code of the element to be searched for.
 
 
 ## Getting Started
