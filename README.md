@@ -54,4 +54,4 @@ under the supervision of [**Dr. Yuval Sanders**](https://researchers.mq.edu.au/e
 
 ## License
 Apache License 2.0<br/>
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/moustafa-7/Grover-s-Algorithm-QOSF/blob/master/LICENSE) file for details
+This project is licensed under the Apache License - see the [LICENSE.md](https://github.com/moustafa-7/Grover-s-Algorithm-QOSF/blob/master/LICENSE) file for details
